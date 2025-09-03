@@ -44,9 +44,13 @@ ln -s /DATA /PROJECTS/VLTSeg/data
 ### Download the pretrained EVA-CLIP weights
 wget https://huggingface.co/QuanSun/EVA-CLIP/resolve/main/EVA02_CLIP_L_psz14_s4B.pt -P checkpoints
 
+### Download any of the VLTSeg checkpoints linked at the bottom of this page and save them to the checkpoints folder
+
 ### Test the installation
-# [TODO: Build nicer demo script]
-python -i demo_composition.py
+# This script runs inference on images/cityscapes_frankfurt.png and saves the output to the images folder.
+# To run this script, you need at least one of the checkpoints linked at the bottom of this page.
+# If you use a synthetic2real checkpoint (like GTA_1), modify the code to use the corresponding config.
+python demo.py "checkpoints/vltseg_checkpoint_mapillary+cityscapes_2.pth"
 ```
 
 The symbolic links to `/CHECKPOINTS` and `/DATA` are required so that the config files can work with relative paths and find your checkpoints and datasets respectively, without modification. If you would rather avoid creating symbolic links, you need to modify the `pretrained` key in [`configs/_base_/models/eva-clip+mask2former.py`](configs/_base_/models/eva-clip+mask2former.py), as well as all `data_root` keys in all files under [`configs/_base_/datasets`](configs/_base_/datasets).
